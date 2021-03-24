@@ -1,20 +1,16 @@
-# regex.py
+# regeximp.py
+# more efficient and elegant than regex.py
 # Autograder: Regular Expressions on https://www.py4e.com/lessons/regex
 
 import re
 import time
 
 start = time.time()
-
-lst = list()
 # fhand = open('regex_sum_42.txt') # 445833
 fhand = open('regex_sum_1172168.txt')
-for line in fhand:
-    line = line.rstrip()
-    slst = re.findall('\d+', line)
-    lst.extend(slst)
 
-print(sum(map(int, lst)))
+print( sum( [ int(sn) for sn in re.findall( '\d+', fhand.read() ) ] ) )
+# print( sum( map( int, re.findall( '\d+', fhand.read() )) ) )
 
 end = time.time()
-# print(end - start)
+print(end - start)
