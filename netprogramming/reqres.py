@@ -1,3 +1,6 @@
+# reqres.py
+# Autograder: Request-Response Cycle on https://www.py4e.com/lessons/network
+
 import socket
 
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
