@@ -1,5 +1,5 @@
-# xml.py
-# https://www.py4e.com/lessons/servces
+# datafromxml.py
+# Autograder: Extracting Data from XML on https://www.py4e.com/lessons/servces
 
 import urllib.request
 import xml.etree.ElementTree as ET
