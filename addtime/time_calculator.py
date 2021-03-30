@@ -6,34 +6,39 @@ def add_time(start, duration, startday=None):
     tm, per = start.split()
 
     ho, mo = list( map( int, tm.split(':') ) )
+    if per == 'PM': ho = ho + 12
     ht, mt = list( map( int, duration.split(':') ) )
 
     hh = ho + ht
     mm = mo + mt
-    bday = 0
-    bmsg = None
     if mm > 60:
         mm = mm - 60
         hh += 1
 
-    if hh > 24 and per == 'PM':
-        hh = hh - 24
-        per = 'AM'
-        bday = bday + 2
+    bday = 0
+    bmsg = None
+    print("line 65:", hh)
 
-    if hh > 12 and per == 'AM':
+    quot, rem = hh // 24, hh % 24
+    if rem == 0: rem = 12
+    print("line 68:", quot, rem)
+
+    if quot > 0:
+        bday += quot
+        hh = rem
+
+    if bday > 1:
+        bmsg = f" ({bday} days later)"
+    elif bday == 1:
+        bmsg = f" (next day)"
+
+    if hh > 12: 
         per = 'PM'
         hh = hh - 12
-
-    if hh > 12 and per == 'PM':
+    else: 
         per = 'AM'
-        hh = hh - 12
-        bday = bday + 1
 
     ntime = f"{hh}:{mm:02d} {per}"
-
-    if bday > 1: bmsg = f" ({bday} days later)"
-    elif bday == 1: bmsg = ' (next day)'
 
     if bmsg is not None: ntime += bmsg
     
@@ -46,49 +51,45 @@ def add_time(start, duration, startday=None):
 # start, duration = "11:40 AM", "0:25"
 # start, duration = "2:59 AM", "24:00"
 # start, duration = "11:59 PM", "24:05"
-start, duration = "8:16 PM", "466:02"
+# start, duration = "8:16 PM", "466:02"
+start, duration = "5:01 AM", "0:00"
 
 tm, per = start.split()
 
 ho, mo = list( map( int, tm.split(':') ) )
+if per == 'PM': ho = ho + 12
 ht, mt = list( map( int, duration.split(':') ) )
 
 hh = ho + ht
 mm = mo + mt
-bday = 0
-bmsg = None
 if mm > 60:
     mm = mm - 60
     hh += 1
 
+bday = 0
+bmsg = None
+print("line 65:", hh)
+
 quot, rem = hh // 24, hh % 24
-perquot = hh // 12
-print(quot, rem)
-print(perquot)
-if quot > 0: 
+if rem == 0: rem = 12
+print("line 68:", quot, rem)
+
+if quot > 0:
     bday += quot
-    if rem > 12:
-        per = 'PM'
-        hh = rem - 12
-    
-# if hh > 24 and per == 'PM':
-#     hh = hh - 24
-#     per = 'AM'
-#     # bday = bday + 2
+    hh = rem
 
-# if hh > 12 and per == 'AM':
-#     per = 'PM'
-#     hh = hh - 12
+if bday > 1:
+    bmsg = f" ({bday} days later)"
+elif bday == 1:
+    bmsg = f" (next day)"
 
-# if hh > 12 and per == 'PM':
-#     per = 'AM'
-#     hh = hh - 12
-    # bday = bday + 1
+if hh > 12: 
+    per = 'PM'
+    hh = hh - 12
+else: 
+    per = 'AM'
 
 ntime = f"{hh}:{mm:02d} {per}"
-
-if bday > 1: bmsg = f" ({bday} days later)"
-elif bday == 1: bmsg = ' (next day)'
 
 if bmsg is not None: ntime += bmsg
 
