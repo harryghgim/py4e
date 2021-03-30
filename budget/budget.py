@@ -72,29 +72,44 @@ class Category:
         result += 'Total: {:.2f}'.format(total)
         return result
 
-
 def create_spend_chart(categories):
     import itertools
     import math
     result = 'Percentage spent by category\n'
-    names = [ category.name for category in categories ]
-    lng = len(names)
-    amounts = [ -dt["amount"] for category in categories for dt in category.ledger if dt["amount"] < 0] 
+
+    amounts = list() # list of integers
+    for category in categories:
+        percent = 0
+        for dt in category.ledger:
+            amt = dt["amount"] # withdraw, negative
+            if amt < 0: percent += -amt
+        amounts.append(percent)
+
     sm = sum(amounts)
+
+    percents = list() # list of strings
+    for amt in amounts:
+        nb = math.floor( amt/sm * 10 ) + 1
+        percent = ' ' * (11 - nb) + 'o' * nb
+        percents.append(percent)
     
-    percents = [ math.floor( amt/sm * 10) * 10  for amt in amounts ]
-    
-    print( percents )
-    
-    
-    for i in range(101)[::-10]:
-        result += '{:>3}|'.format(i)    
+    labels = range(101)[::-10]
+    chartpls = zip( *percents )
+        
+    for i, tp in zip( labels, chartpls ):
+        result += f'{i:>3}| '
+        for char in tp:            
+            result += char + '  '
         result += '\n'
 
-    result += '{:<4}-'.format('') + '---' * lng + '\n'
+    names = [ category.name for category in categories ]
+    lng = len(names)
+
+    result += '{:<4}-{}\n'.format('', '---' * lng)
     for tp in itertools.zip_longest(*names, fillvalue=' '):
         result += ' ' * 5
         for char in tp:
             result += char + '  '
         result += '\n'
+    result = result.rstrip('\n')
     return result
