@@ -26,8 +26,8 @@ class Category:
         dt = dict()
         dt["amount"] = -amount
         dt["description"] = description
-        fund = self.get_balance()
-        if fund - amount > 0: 
+
+        if self.check_funds(amount):
             self.ledger.append(dt)
             return True
         return False
@@ -50,17 +50,16 @@ class Category:
         dtto = dict()
         dtto["amount"] = amount
         dtto["description"] = f"Transfer from {frmname}"
-        
-        fund = self.get_balance()
-
-        if fund - amount > 0: 
+            
+        if self.check_funds(amount): 
             self.ledger.append(dtfrm)
             category.ledger.append(dtto)
             return True
         return False        
 
     def check_funds(self, amount):
-        pass
+        balance = self.get_balance()
+        return balance - amount >= 0
 
 
 def create_spend_chart(categories):
