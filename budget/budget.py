@@ -74,4 +74,27 @@ class Category:
 
 
 def create_spend_chart(categories):
-    pass
+    import itertools
+    import math
+    result = 'Percentage spent by category\n'
+    names = [ category.name for category in categories ]
+    lng = len(names)
+    amounts = [ -dt["amount"] for category in categories for dt in category.ledger if dt["amount"] < 0] 
+    sm = sum(amounts)
+    
+    percents = [ math.floor( amt/sm * 10) * 10  for amt in amounts ]
+    
+    print( percents )
+    
+    
+    for i in range(101)[::-10]:
+        result += '{:>3}|'.format(i)    
+        result += '\n'
+
+    result += '{:<4}-'.format('') + '---' * lng + '\n'
+    for tp in itertools.zip_longest(*names, fillvalue=' '):
+        result += ' ' * 5
+        for char in tp:
+            result += char + '  '
+        result += '\n'
+    return result
