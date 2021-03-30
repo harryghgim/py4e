@@ -61,6 +61,17 @@ class Category:
         balance = self.get_balance()
         return balance - amount >= 0
 
+    def __str__(self):
+        result = ''
+        result += self.name.center(30, "*") + "\n"
+        total = self.get_balance()
+        for dt in self.ledger:
+            description = dt["description"][:23]
+            amount = dt["amount"]
+            result += '{:<23} {:.2f}\n'.format(description, amount)
+        result += 'Total: {:.2f}'.format(total)
+        return result
+
 
 def create_spend_chart(categories):
     pass
