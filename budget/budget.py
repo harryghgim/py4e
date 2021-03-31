@@ -68,7 +68,7 @@ class Category:
         for dt in self.ledger:
             description = dt["description"][:23]
             amount = dt["amount"]
-            result += '{:<23} {:.2f}\n'.format(description, amount)
+            result += '{:<23}{:>7.2f}\n'.format(description, amount)
         result += 'Total: {:.2f}'.format(total)
         return result
 
