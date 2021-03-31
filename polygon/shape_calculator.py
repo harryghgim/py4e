@@ -1,3 +1,8 @@
+
+# polygon area calculator
+# question: https://www.freecodecamp.org/learn/scientific-computing-with-python/scientific-computing-with-python-projects/polygon-area-calculator
+# answer: https://replit.com/@harryghgim/boilerplate-polygon-area-calculator#shape_calculator.py
+
 class Rectangle:
 
     def __init__(self, wd, ht):
@@ -59,9 +64,8 @@ class Rectangle:
         
         return howmany
 
-
 class Square(Rectangle):
-    
+
     def __init__(self, sd):
         sd = int(sd)
         self.width = sd
@@ -69,10 +73,7 @@ class Square(Rectangle):
         self.side = sd
 
     def set_side(self, sd):
-        sd = int(sd)
-        self.width = sd
-        self.height = sd
-        self.side = sd
+        self.__init__(sd)
 
     def __str__(self):
         side = self.side
@@ -80,13 +81,7 @@ class Square(Rectangle):
         return inststr
 
     def set_width(self, sd):
-        sd = int(sd)
-        self.width = sd
-        self.height = sd
-        self.side = sd
+        self.set_side(sd)
 
     def set_height(self, sd):
-        sd = int(sd)
-        self.width = sd
-        self.height = sd
-        self.side = sd
+        self.set_side(sd)

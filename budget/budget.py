@@ -1,4 +1,6 @@
-# budget.py
+# budget app
+# question: https://www.freecodecamp.org/learn/scientific-computing-with-python/scientific-computing-with-python-projects/budget-app
+# answer: https://replit.com/@harryghgim/boilerplate-budget-app#budget.py
 
 class Category:
     """
