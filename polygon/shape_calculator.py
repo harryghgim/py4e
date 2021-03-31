@@ -27,7 +27,7 @@ class Rectangle:
         wd = self.width
         AST = '*'
         picture = ''
-        errmsg = 'Too big for picture'
+        errmsg = 'Too big for picture.'
 
         if wd > 50 or ht > 50: return errmsg
 
@@ -42,6 +42,22 @@ class Rectangle:
         height = self.height
         inststr = "Rectangle(width={}, height={})".format(width, height)
         return inststr
+
+
+    def get_amount_inside(self, inst):
+        bwd = self.width
+        bht = self.height
+        swd = inst.width
+        sht = inst.height
+        barea = self.get_area()
+        sarea = inst.get_area()
+
+        howmany = 0
+
+        if bwd > swd and bht > sht and barea > sarea:
+            howmany = barea // sarea
+        
+        return howmany
 
 
 class Square(Rectangle):
@@ -61,6 +77,7 @@ class Square(Rectangle):
     def __str__(self):
         side = self.side
         inststr = "Square(side={})".format(side)
+        return inststr
 
     def set_width(self, sd):
         sd = int(sd)
